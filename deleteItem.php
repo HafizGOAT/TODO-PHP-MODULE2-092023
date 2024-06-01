@@ -3,11 +3,16 @@ header('Location:index.php');
 include('fct/item.php');
 include('fct/request.php');
 include('config/app.php');
+include('config/db.php');
+include('connexion.php');
 
-$items = getitems();
-$id = get('item');
 
-unset($items[$id]);
+    $id = get('item');
+    $query ="DELETE FROM todo WHERE id=:id";
+    $stmt = $pdo->prepare($query);
 
-saveItems($items);
+    $intitule=post('intitule');
+    $stmt ->bindParam('id',$id);
+    $stmt->execute();   
+
 ?>

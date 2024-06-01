@@ -3,14 +3,17 @@ header('Location:index.php');
 include('fct/item.php');
 include('fct/request.php');
 include('config/app.php');
+include('config/db.php');
+include('connexion.php');
 
-$items = getitems();
 $id = post('editItem');
 
+$query ='UPDATE todo SET intitule=:intitule WHERE id=:id';
+$stmt = $pdo->prepare($query);
+$stmt ->bindParam('intitule',post('intitule'));
+$stmt ->bindParam('id',$id);
+$stmt->execute();
 
-$items[$id]['intitule'] = post('intitule');
 
-
-saveItems($items);
 
 ?>

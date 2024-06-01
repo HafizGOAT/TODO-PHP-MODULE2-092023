@@ -3,11 +3,15 @@ header('Location:index.php');
 include('fct/item.php');
 include('fct/request.php');
 include('config/app.php');
+include('config/db.php');
+include('connexion.php');
 
-$items = getitems();
 $id = get('item');
+$query ='UPDATE todo SET checked=1-checked WHERE id=:id';
+$stmt = $pdo->prepare($query);
 
-$items[$id]['checked'] = !$items[$id]['checked'];
+$stmt ->bindParam('id',$id);
+$stmt->execute();
 
-saveItems($items);
+
 ?>
